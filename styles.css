@@ -65,3 +65,8 @@ h2 {
     padding: 10px 0;
     margin-top: auto;
 }
+
+ul li {
+    margin-bottom: 5px; /* Adds space between list items */
+    
+}
