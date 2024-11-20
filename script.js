@@ -12,4 +12,16 @@ function toggleParagraphVisible (){
     toggleParagraph.style.display = toggleParagraph.style.display === "none" ? "block" : "none";
 }
 
+const body = document.body;
+const darkButton = document.getElementById("theme-toggle");
+
+  // Add an event listener to toggle the theme on button click
+  darkButton.addEventListener("click", () => {
+    // Toggle the dark-mode class on the body
+    const isDarkMode = body.classList.toggle("dark-mode");
+
+    // Update button text depending on the theme
+    darkButton.textContent = isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode";
+
+    });
 });

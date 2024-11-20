@@ -18,6 +18,15 @@ body, html {
 
 }
 
+body.dark-mode {
+    background-color: black;
+    color: rgb(168, 18, 18);
+}
+
+
+
+
+
 /* Container to flex content and footer to bottom */
 .container {
     display: flex;
