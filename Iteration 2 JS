@@ -1,0 +1,142 @@
+// Get the modal, open button, close button, and form elements
+const modal = document.getElementById("account-modal");
+const openModalBtn = document.querySelector(".add-account-btn");
+const closeModalBtn = document.querySelector(".close-btn");
+const form = document.getElementById("account-form");
+const accountList = document.querySelector(".account-list");
+
+// Load saved accounts from localStorage when the page loads
+document.addEventListener("DOMContentLoaded", loadAccounts);
+
+// Open modal when "Add New Account" button is clicked
+openModalBtn.addEventListener("click", function () {
+  modal.style.display = "flex"; // Show the modal
+});
+
+// Close modal when the X button is clicked
+closeModalBtn.addEventListener("click", function () {
+  modal.style.display = "none"; // Hide the modal
+});
+
+// Close modal if the user clicks anywhere outside the modal
+window.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    modal.style.display = "none"; // Hide the modal if the click is outside of it
+  }
+});
+
+// Handle form submission
+form.addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent form from submitting normally
+
+  // Get form values
+  const website = document.getElementById("website").value;
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  // Create an account object
+  const account = {
+    website,
+    username,
+    password,
+  };
+
+  // Save the account to localStorage
+  saveAccount(account);
+
+  // Add the account to the UI
+  addAccountToUI(account);
+
+  // Close the modal and reset the form
+  modal.style.display = "none";
+  form.reset();
+});
+
+// Function to save an account to localStorage
+function saveAccount(account) {
+  let accounts = JSON.parse(localStorage.getItem("accounts")) || []; // Get existing accounts or initialize an empty array
+  accounts.push(account); // Add the new account
+  localStorage.setItem("accounts", JSON.stringify(accounts)); // Save back to localStorage
+}
+
+// Function to load accounts from localStorage and display them
+function loadAccounts() {
+  let accounts = JSON.parse(localStorage.getItem("accounts")) || []; // Get saved accounts or an empty array
+  accounts.forEach((account) => addAccountToUI(account)); // Add each account to the UI
+}
+
+// Function to add an account to the UI
+function addAccountToUI(account) {
+  // Create a new list item for the account
+  const accountItem = document.createElement("li");
+  accountItem.classList.add("account-item");
+
+  // Add the account name
+  const accountName = document.createElement("span");
+  accountName.classList.add("account-name");
+  accountName.textContent = account.website; // Use the website as the account name
+  accountItem.appendChild(accountName);
+
+  // Add the button group
+  const buttonGroup = document.createElement("div");
+  buttonGroup.classList.add("button-group");
+
+  // Add View button
+  const viewBtn = document.createElement("button");
+  viewBtn.classList.add("view-btn");
+  viewBtn.textContent = "View";
+  viewBtn.addEventListener("click", () => viewAccount(account)); // Add event listener for View
+  buttonGroup.appendChild(viewBtn);
+
+  // Add Edit button
+  const editBtn = document.createElement("button");
+  editBtn.classList.add("edit-btn");
+  editBtn.textContent = "Edit";
+  editBtn.addEventListener("click", () => editAccount(account)); // Add event listener for Edit
+  buttonGroup.appendChild(editBtn);
+
+  // Add Delete button
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("delete-btn");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.addEventListener("click", () => deleteAccount(account)); // Add event listener for Delete
+  buttonGroup.appendChild(deleteBtn);
+
+  // Append the button group to the account item
+  accountItem.appendChild(buttonGroup);
+
+  // Append the account item to the account list
+  accountList.appendChild(accountItem);
+}
+
+// Function to view account details (e.g., show in an alert)
+function viewAccount(account) {
+  alert(`Website: ${account.website}\nUsername: ${account.username}\nPassword: ${account.password}`);
+}
+
+// Function to edit an account
+function editAccount(account) {
+  // Pre-fill the modal form with the account details
+  document.getElementById("website").value = account.website;
+  document.getElementById("username").value = account.username;
+  document.getElementById("password").value = account.password;
+
+  // Show the modal
+  modal.style.display = "flex";
+
+  // Delete the old account from localStorage and the UI
+  deleteAccount(account);
+}
+
+// Function to delete an account
+function deleteAccount(account) {
+  let accounts = JSON.parse(localStorage.getItem("accounts")) || []; // Get saved accounts
+  accounts = accounts.filter(
+    (acc) => acc.website !== account.website || acc.username !== account.username || acc.password !== account.password
+  ); // Filter out the account to delete
+  localStorage.setItem("accounts", JSON.stringify(accounts)); // Save the updated list
+
+  // Reload the UI
+  accountList.innerHTML = ""; // Clear the current list
+  loadAccounts(); // Reload accounts from localStorage
+}
