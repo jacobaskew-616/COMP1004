@@ -1,0 +1,37 @@
+// Get the modal, open button, close button, and form elements
+const modal = document.getElementById("account-modal");
+const openModalBtn = document.querySelector(".add-account-btn");
+const closeModalBtn = document.querySelector(".close-btn");
+const form = document.getElementById("account-form");
+
+// Open modal when "Add New Account" button is clicked
+openModalBtn.addEventListener("click", function () {
+  modal.style.display = "flex"; // Show the modal
+});
+
+// Close modal when the X button is clicked
+closeModalBtn.addEventListener("click", function () {
+  modal.style.display = "none"; // Hide the modal
+});
+
+// Close modal if the user clicks anywhere outside the modal
+window.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    modal.style.display = "none"; // Hide the modal if the click is outside of it
+  }
+});
+
+// Handle form submission
+form.addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent form from submitting normally
+  const website = document.getElementById("website").value;
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  console.log("New Account Added:", { website, username, password });
+
+  // Close the modal after submission
+  modal.style.display = "none";
+
+  // Reset the form fields
+  form.reset();
+});
