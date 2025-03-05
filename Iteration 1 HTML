@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Manager Dashboard</title>
+    <link rel="stylesheet" href="prototypeSPAstyles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Password Manager</h1>
+      </header>
+
+      <main>
+        <section class="dashboard">
+          <h2>Your Accounts</h2>
+          <ul class="account-list">
+            <li class="account-item">
+              <span class="account-name">Example Account 1</span>
+              <div class="button-group">
+                <button class="view-btn">View</button>
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+              </div>
+            </li>
+            <li class="account-item">
+              <span class="account-name">Example Account 2</span>
+              <div class="button-group">
+                <button class="view-btn">View</button>
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+              </div>
+            </li>
+            <li class="account-item">
+              <span class="account-name">Example Account 3</span>
+              <div class="button-group">
+                <button class="view-btn">View</button>
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+              </div>
+            </li>
+          </ul>
+
+          <button class="add-account-btn">Add New Account</button>
+        </section>
+
+        <!-- Account Modal -->
+        <div id="account-modal" class="modal">
+          <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Add New Account</h2>
+            <form id="account-form">
+              <input type="text" id="website" placeholder="Website" required /><br />
+              <input type="text" id="username" placeholder="Username" required /><br />
+              <input type="password" id="password" placeholder="Password" required /><br />
+              <button type="submit">Save Account</button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="prototypeSPA.js"></script>
+  </body>
+</html>
