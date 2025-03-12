@@ -1,0 +1,225 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: #333;
+}
+
+.dark-mode-btn {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.dark-mode-btn:hover {
+  background-color: #0056b3;
+}
+
+.dashboard {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.account-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.account-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.account-name {
+  font-size: 1.2em;
+  color: #333;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.view-btn, .edit-btn, .delete-btn {
+  padding: 8px 15px;
+  font-size: 1em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.view-btn:hover {
+  background-color: #45a049;
+}
+
+.edit-btn {
+  background-color: #FFD700;
+  color: white;
+  border: none;
+}
+
+.edit-btn:hover {
+  background-color: #e1c200;
+}
+
+.delete-btn {
+  background-color: #FF4C4C;
+  color: white;
+  border: none;
+}
+
+.delete-btn:hover {
+  background-color: #e04444;
+}
+
+.add-account-btn, .export-all-btn {
+  display: block;
+  width: 100%;
+  background-color: #007BFF;
+  color: white;
+  padding: 12px;
+  border: none;
+  font-size: 1.2em;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.add-account-btn:hover, .export-all-btn:hover {
+  background-color: #0056b3;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button[type="submit"] {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px;
+  border: none;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #333;
+  color: #f4f4f4;
+}
+
+body.dark-mode .dashboard {
+  background-color: #444;
+  color: #f4f4f4;
+}
+
+body.dark-mode .account-item {
+  background-color: #555;
+  color: #f4f4f4;
+}
+
+body.dark-mode .modal-content {
+  background-color: #444;
+  color: #f4f4f4;
+}
+
+body.dark-mode input {
+  background-color: #555;
+  color: #f4f4f4;
+  border: 1px solid #777;
+}
+
+body.dark-mode button {
+  background-color: #666;
+  color: #f4f4f4;
+}
+
+body.dark-mode button:hover {
+  background-color: #777;
+}
