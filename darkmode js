@@ -1,0 +1,147 @@
+// Get the modal, open button, close button, and form elements
+const modal = document.getElementById("account-modal");
+const openModalBtn = document.querySelector(".add-account-btn");
+const closeModalBtn = document.querySelector(".close-btn");
+const form = document.getElementById("account-form");
+const accountList = document.querySelector(".account-list");
+
+// Load saved accounts from localStorage when the page loads
+document.addEventListener("DOMContentLoaded", loadAccounts);
+
+// Open modal when "Add New Account" button is clicked
+openModalBtn.addEventListener("click", function () {
+  modal.style.display = "flex";
+});
+
+// Close modal when the X button is clicked
+closeModalBtn.addEventListener("click", function () {
+  modal.style.display = "none";
+});
+
+// Close modal if the user clicks anywhere outside the modal
+window.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+// Handle form submission
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  // Get form values
+  const website = document.getElementById("website").value;
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  // Create an account object
+  const account = {
+    website,
+    username,
+    password,
+  };
+
+  // Save the account to localStorage
+  saveAccount(account);
+
+  // Add the account to the UI
+  addAccountToUI(account);
+
+  // Close the modal and reset the form
+  modal.style.display = "none";
+  form.reset();
+});
+
+// Function to save an account to localStorage
+function saveAccount(account) {
+  let accounts = JSON.parse(localStorage.getItem("accounts")) || [];
+  accounts.push(account);
+  localStorage.setItem("accounts", JSON.stringify(accounts));
+}
+
+// Function to load accounts from localStorage and display them
+function loadAccounts() {
+  let accounts = JSON.parse(localStorage.getItem("accounts")) || [];
+  accounts.forEach((account) => addAccountToUI(account));
+}
+
+// Function to add an account to the UI
+function addAccountToUI(account) {
+  const accountItem = document.createElement("li");
+  accountItem.classList.add("account-item");
+
+  const accountName = document.createElement("span");
+  accountName.classList.add("account-name");
+  accountName.textContent = account.website;
+  accountItem.appendChild(accountName);
+
+  const buttonGroup = document.createElement("div");
+  buttonGroup.classList.add("button-group");
+
+  const viewBtn = document.createElement("button");
+  viewBtn.classList.add("view-btn");
+  viewBtn.textContent = "View";
+  viewBtn.addEventListener("click", () => viewAccount(account));
+  buttonGroup.appendChild(viewBtn);
+
+  const editBtn = document.createElement("button");
+  editBtn.classList.add("edit-btn");
+  editBtn.textContent = "Edit";
+  editBtn.addEventListener("click", () => editAccount(account));
+  buttonGroup.appendChild(editBtn);
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("delete-btn");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.addEventListener("click", () => deleteAccount(account));
+  buttonGroup.appendChild(deleteBtn);
+
+  accountItem.appendChild(buttonGroup);
+  accountList.appendChild(accountItem);
+}
+
+// Function to view account details
+function viewAccount(account) {
+  alert(`Website: ${account.website}\nUsername: ${account.username}\nPassword: ${account.password}`);
+}
+
+// Function to edit an account
+function editAccount(account) {
+  document.getElementById("website").value = account.website;
+  document.getElementById("username").value = account.username;
+  document.getElementById("password").value = account.password;
+  modal.style.display = "flex";
+  deleteAccount(account);
+}
+
+// Function to delete an account
+function deleteAccount(account) {
+  let accounts = JSON.parse(localStorage.getItem("accounts")) || [];
+  accounts = accounts.filter(
+    (acc) => acc.website !== account.website || acc.username !== account.username || acc.password !== account.password
+  );
+  localStorage.setItem("accounts", JSON.stringify(accounts));
+  accountList.innerHTML = "";
+  loadAccounts();
+}
+
+// Dark Mode Toggle
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+const body = document.body;
+
+// Check if dark mode is enabled in localStorage
+if (localStorage.getItem("dark-mode") === "enabled") {
+  body.classList.add("dark-mode");
+}
+
+// Toggle dark mode
+darkModeToggle.addEventListener("click", function () {
+  body.classList.toggle("dark-mode");
+
+  // Save the user's preference in localStorage
+  if (body.classList.contains("dark-mode")) {
+    localStorage.setItem("dark-mode", "enabled");
+  } else {
+    localStorage.setItem("dark-mode", "disabled");
+  }
+});
